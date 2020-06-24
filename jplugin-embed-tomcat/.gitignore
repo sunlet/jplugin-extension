@@ -1,0 +1,7 @@
+/target/
+/logs/
+/nswork/
+/tomcat.8080/
+/.settings/
+/.classpath
+/.project
