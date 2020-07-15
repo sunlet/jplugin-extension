@@ -2,24 +2,19 @@ package net.jplugin.extension.embed_tomcat.impl;
 
 import java.io.File;
 
-import javax.servlet.ServletException;
-
 import org.apache.catalina.Context;
-import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import net.jplugin.common.kits.FileKit;
-import net.jplugin.common.kits.StringKit;
 import net.jplugin.common.kits.XMLKit;
 import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.ext.webasic.impl.PluginServlet;
 
-public class JPluginTomcat {
+public class TomcatStarter {
 
-	public static void start() throws Exception {
+	public static Tomcat start() throws Exception {
 		Tomcat tomcat = new Tomcat();
 		tomcat.setPort(EmbedTomcatConfig.getTomcatPort());
 		
@@ -51,7 +46,8 @@ public class JPluginTomcat {
 		customConnector(connector);
 		
 		tomcat.start();
-		tomcat.getServer().await();
+		
+		return tomcat;
 	}
 /**
  * 
