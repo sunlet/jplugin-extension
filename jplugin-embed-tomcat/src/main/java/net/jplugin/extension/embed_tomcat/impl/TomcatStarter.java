@@ -5,6 +5,7 @@ import java.io.File;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.coyote.http11.Http11NioProtocol;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -71,6 +72,19 @@ public class TomcatStarter {
  * @param connector
  */
 	private static void customConnector(Connector connector) {
+		Http11NioProtocol protocol = (Http11NioProtocol) connector.getProtocolHandler();
+		// 设置最大线程数
+		protocol.setMaxThreads(50);
+		// 设置最大连接数
+		protocol.setMaxConnections(100);
+		protocol.setAcceptorThreadCount(50);
+		protocol.setMinSpareThreads(50);
+		// 设置超时时间
+		protocol.setConnectionTimeout(5000);
+		protocol.setKeepAliveTimeout(5000);
+
+		protocol.setMaxSavePostSize(20480);
+		protocol.setNoCompressionUserAgents("gozilla, traviata");
 	}
 
 	/**
