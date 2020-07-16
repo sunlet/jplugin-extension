@@ -85,6 +85,7 @@ public class TomcatStarter {
 
 		protocol.setMaxSavePostSize(20480);
 		protocol.setNoCompressionUserAgents("gozilla, traviata");
+		
 	}
 
 	/**
