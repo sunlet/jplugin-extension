@@ -34,9 +34,11 @@ public class EmbedTomcatConfig {
 
     private static final String REDIRECT_PORT = "embed-tomcat.redirect-port";
 
-    private static final String PROTOCOL_URL_ENCODING = "embed-tomcat.uri-encoding";
+    private static final String URL_ENCODING = "embed-tomcat.uri-encoding";
 
-    private static final String PROTOCOL_MAX_POST_SIZE = "embed-tomcat.max-post-size";
+    private static final String MAX_POST_SIZE = "embed-tomcat.max-post-size";
+
+    private static final String PROTOCOL_COMPRESSION = "embed-tomcat.protocol.compression";
 
 
     private static Integer tomcatPort;
@@ -53,6 +55,7 @@ public class EmbedTomcatConfig {
     private static Integer redirectPort;
     private static String compressableMimeType;
     private static Integer maxPostSize;
+    private static String compression;
 
     public static void init() {
         tomcatPort = ConfigFactory.getIntConfig(TOMCAT_PORT, 8080);
@@ -62,7 +65,7 @@ public class EmbedTomcatConfig {
         contextName = ConfigFactory.getStringConfigWithTrim(CONTEXT_NAME);
         if (StringKit.isNull(contextName)) contextName = "";
 
-        uriEncoding = ConfigFactory.getStringConfig(PROTOCOL_URL_ENCODING);
+        uriEncoding = ConfigFactory.getStringConfig(URL_ENCODING);
         maxThreads = ConfigFactory.getIntConfig(PROTOCOL_MAX_THREADS);
 
         maxConnections = ConfigFactory.getIntConfig(PROTOCOL_MAX_CONNECTIONS);
@@ -75,7 +78,9 @@ public class EmbedTomcatConfig {
 
         compressableMimeType = ConfigFactory.getStringConfigWithTrim(PROTOCOL_COMPRESSABLE_MIME_TYPE);
 
-        maxPostSize = ConfigFactory.getIntConfig(PROTOCOL_MAX_POST_SIZE);
+        maxPostSize = ConfigFactory.getIntConfig(MAX_POST_SIZE);
+
+        compression= ConfigFactory.getStringConfigWithTrim(PROTOCOL_COMPRESSION);
 
         StringBuffer sb = new StringBuffer();
         sb.append("$$$ Embed Tomcat config:\n tomcatPort=" + tomcatPort)
@@ -143,4 +148,8 @@ public class EmbedTomcatConfig {
 	public static Integer getMaxPostSize() {
 		return maxPostSize;
 	}
+
+    public static String getCompression() {
+        return compression;
+    }
 }

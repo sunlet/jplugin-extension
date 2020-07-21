@@ -119,6 +119,9 @@ public class TomcatStarter {
             protocol.setCompressibleMimeType(EmbedTomcatConfig.getCompressableMimeType());
         }
 
+        if (EmbedTomcatConfig.getCompression() != null && !"".equals(EmbedTomcatConfig.getCompression())) {
+            protocol.setCompression(EmbedTomcatConfig.getCompression());
+        }
         //protocol.setNoCompressionUserAgents("gozilla, traviata");
 
     }
