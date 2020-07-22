@@ -53,18 +53,18 @@ public class TomcatStarter {
     /**
      * <Connector port="8080" protocol="org.apache.coyote.http11.Http11NioProtocol"
      * connectionTimeout="20000" ok
-     * URIEncoding="UTF-8"
-     * useBodyEncodingForURI="false"
+     * URIEncoding="UTF-8" ok
+     * useBodyEncodingForURI="false"  ok
      * maxThreads="1000"  ok
      * minSpareThreads="100" ok
      * enableLookups="false"
-     * redirectPort="8443"
+     * redirectPort="8443"   ok
      * acceptCount="800"
-     * compression="on"
+     * compression="on"   ok
      * compressionMinSize="20480"
      * noCompressionUserAgents="gozilla, traviata"
-     * maxPostSize="209715200"
-     * compressableMimeType="text/html,text/xml,text/plain,text/javascript,text/css,application/octet-stream" />
+     * maxPostSize="209715200"   ok
+     * compressableMimeType="text/html,text/xml,text/plain,text/javascript,text/css,application/octet-stream" />   on
      *
      * @param connector
      */
@@ -76,9 +76,12 @@ public class TomcatStarter {
         if (EmbedTomcatConfig.getRedirectPort() != null) {
             connector.setRedirectPort(EmbedTomcatConfig.getRedirectPort());
         }
-
         if (EmbedTomcatConfig.getUriEncoding() != null && !"".equals(EmbedTomcatConfig.getUriEncoding())) {
             connector.setURIEncoding(EmbedTomcatConfig.getUriEncoding());
+        }
+
+        if(EmbedTomcatConfig.getUseBodyEncodingForURI()!=null){
+            connector.setUseBodyEncodingForURI(EmbedTomcatConfig.getUseBodyEncodingForURI());
         }
 
 
@@ -122,7 +125,9 @@ public class TomcatStarter {
         if (EmbedTomcatConfig.getCompression() != null && !"".equals(EmbedTomcatConfig.getCompression())) {
             protocol.setCompression(EmbedTomcatConfig.getCompression());
         }
+
         //protocol.setNoCompressionUserAgents("gozilla, traviata");
+
 
     }
 

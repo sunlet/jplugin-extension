@@ -38,6 +38,9 @@ public class EmbedTomcatConfig {
 
     private static final String MAX_POST_SIZE = "embed-tomcat.max-post-size";
 
+    private static final String USE_BODY_ENCODING_FOR_URI = "embed-tomcat.use-body-encoding-for-uri";
+
+
     private static final String PROTOCOL_COMPRESSION = "embed-tomcat.protocol.compression";
 
 
@@ -56,6 +59,7 @@ public class EmbedTomcatConfig {
     private static String compressableMimeType;
     private static Integer maxPostSize;
     private static String compression;
+    private static Boolean useBodyEncodingForURI;
 
     public static void init() {
         tomcatPort = ConfigFactory.getIntConfig(TOMCAT_PORT, 8080);
@@ -80,15 +84,21 @@ public class EmbedTomcatConfig {
 
         maxPostSize = ConfigFactory.getIntConfig(MAX_POST_SIZE);
 
-        compression= ConfigFactory.getStringConfigWithTrim(PROTOCOL_COMPRESSION);
+        compression = ConfigFactory.getStringConfigWithTrim(PROTOCOL_COMPRESSION);
 
+        useBodyEncodingForURI = "true".equalsIgnoreCase(ConfigFactory.getStringConfigWithTrim(USE_BODY_ENCODING_FOR_URI));
         StringBuffer sb = new StringBuffer();
         sb.append("$$$ Embed Tomcat config:\n tomcatPort=" + tomcatPort)
                 .append("\n useWebSupport:" + useWebSupport)
                 .append("\n contextName:" + contextName)
-				.append("\n maxThreads:" + maxThreads)
-				.append("\n maxConnections:" + maxConnections)
-				.append("\n connectionTimeout:" + connectionTimeout);
+                .append("\n maxThreads:" + maxThreads)
+                .append("\n maxConnections:" + maxConnections)
+                .append("\n compressableMimeType:" + compressableMimeType)
+                .append("\n redirectPort:" + redirectPort)
+                .append("\n connectionTimeout:" + connectionTimeout)
+                .append("\n maxPostSize:" + maxPostSize)
+                .append("\n compression:" + compression)
+                .append("\n useBodyEncodingForURI:" + useBodyEncodingForURI);
 
 
         PluginEnvirement.getInstance().getStartLogger().log(sb.toString());
@@ -145,11 +155,15 @@ public class EmbedTomcatConfig {
         return uriEncoding;
     }
 
-	public static Integer getMaxPostSize() {
-		return maxPostSize;
-	}
+    public static Integer getMaxPostSize() {
+        return maxPostSize;
+    }
 
     public static String getCompression() {
         return compression;
+    }
+
+    public static Boolean getUseBodyEncodingForURI() {
+        return useBodyEncodingForURI;
     }
 }
