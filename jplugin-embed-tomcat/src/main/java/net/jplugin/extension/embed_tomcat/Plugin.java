@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import org.apache.catalina.LifecycleException;
 
 import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.PluginAnnotation;
 import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.extension.embed_tomcat.impl.EmbedTomcatConfig;
@@ -24,25 +25,6 @@ public class Plugin extends AbstractPlugin {
 	
 	@Override
 	public void init() {
-		TomcatController.startTomcat();
-		for (int i=0;i<240;i++) {
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-			Boolean result = TomcatController.getStartResult();
-			if (result !=null) {
-				if (result) {
-					PluginEnvirement.getInstance().getStartLogger().log("$$$ 内置Tomcat 启动完毕!");
-					return;
-				}else {
-					throw new RuntimeException("内置Tomcat 启动失败！");
-				}
-			}
-		}
-		throw new RuntimeException("Tomcat 启动超时！");
 		
 //		try {
 //			JPluginTomcat.start();
@@ -59,6 +41,6 @@ public class Plugin extends AbstractPlugin {
 	
 	@Override
 	public int getPrivority() {
-		return -2;
+		return CoreServicePriority.OFFSET_FOR_EXTENSION +1;
 	}
 }
