@@ -72,20 +72,60 @@ public class TomcatStarter {
  * @param connector
  */
 	private static void customConnector(Connector connector) {
-		Http11NioProtocol protocol = (Http11NioProtocol) connector.getProtocolHandler();
-		// 设置最大线程数
-		protocol.setMaxThreads(50);
-		// 设置最大连接数
-		protocol.setMaxConnections(100);
-		protocol.setAcceptorThreadCount(50);
-		protocol.setMinSpareThreads(50);
-		// 设置超时时间
-		protocol.setConnectionTimeout(5000);
-		protocol.setKeepAliveTimeout(5000);
+		  	Http11NioProtocol protocol = (Http11NioProtocol) connector.getProtocolHandler();
 
-		protocol.setMaxSavePostSize(20480);
-		protocol.setNoCompressionUserAgents("gozilla, traviata");
-		
+
+	        //当用户用http请求某个资源，而该资源本身又被设置了必须要https方式访问，此时Tomcat会自动重定向到这个redirectPort设置的https端口。
+	        if (EmbedTomcatConfig.getRedirectPort() != null) {
+	            connector.setRedirectPort(EmbedTomcatConfig.getRedirectPort());
+	        }
+
+	        if (EmbedTomcatConfig.getUriEncoding() != null && !"".equals(EmbedTomcatConfig.getUriEncoding())) {
+	            connector.setURIEncoding(EmbedTomcatConfig.getUriEncoding());
+	        }
+
+
+	        // 设置最大线程数
+	        if (EmbedTomcatConfig.getMaxThreads() != null) {
+	            protocol.setMaxThreads(EmbedTomcatConfig.getMaxThreads());
+	        }
+	        //线程池中，保持活跃的线程的最小数量，默认为10。
+	        if (EmbedTomcatConfig.getMinSpareThreads() != null) {
+	            protocol.setMinSpareThreads(EmbedTomcatConfig.getMinSpareThreads());
+	        }
+
+
+	        // 设置超时时间  ,当client与tomcat建立连接之后,在"connectionTimeout"时间之内,仍然没有得到client的请求数据,此时连接将会被断开
+	        if (EmbedTomcatConfig.getConnectionTimeout() != null) {
+	            protocol.setConnectionTimeout(EmbedTomcatConfig.getConnectionTimeout());
+	        }
+
+	        //  tomcat允许接收和处理的最大链接数
+	        if (EmbedTomcatConfig.getMaxConnections() != null) {
+	            protocol.setMaxConnections(EmbedTomcatConfig.getMaxConnections());
+	        }
+	        //当无实际数据交互时，链接被保持的时间，单位：毫秒
+	        if (EmbedTomcatConfig.getKeepaliveTimeout() != null) {
+	            protocol.setKeepAliveTimeout(EmbedTomcatConfig.getKeepaliveTimeout());
+	        }
+
+	        //默认为1，表示用于accept新链接的线程个数，如果在多核CPU架构下，此值可以设置为2，官方不建议设定超过2个的值。
+	        if (EmbedTomcatConfig.getAcceptorThreadCount() != null) {
+	            protocol.setAcceptorThreadCount(EmbedTomcatConfig.getAcceptorThreadCount());
+	        }
+
+	        if(EmbedTomcatConfig.getMaxPostSize()!=null) {
+				connector.setMaxPostSize(EmbedTomcatConfig.getMaxPostSize());
+			}
+
+	        if (EmbedTomcatConfig.getCompressableMimeType() != null && !"".equals(EmbedTomcatConfig.getCompressableMimeType())) {
+	        	protocol.setCompressableMimeType(EmbedTomcatConfig.getCompressableMimeType());
+	        }
+
+	        if (EmbedTomcatConfig.getCompression() != null && !"".equals(EmbedTomcatConfig.getCompression())) {
+	            protocol.setCompression(EmbedTomcatConfig.getCompression());
+	        }
+	        //protocol.setNoCompressionUserAgents("gozilla, traviata");
 	}
 
 	/**
