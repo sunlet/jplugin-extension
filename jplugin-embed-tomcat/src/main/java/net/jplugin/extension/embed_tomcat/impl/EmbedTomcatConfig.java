@@ -124,6 +124,8 @@ public class EmbedTomcatConfig {
     public static Integer getMinSpareThreads() {
         return minSpareThreads;
     }
+    
+    
 
     public static Integer getKeepaliveTimeout() {
         return keepaliveTimeout;
