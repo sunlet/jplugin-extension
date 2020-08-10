@@ -15,22 +15,22 @@ public class EmbedTomcatConfig {
     private static final String CONTEXT_NAME = "embed-tomcat.context-name";
 
 
-    private static final String PROTOCOL_COMPRESSABLE_MIME_TYPE = "embed-tomcat.protocol.compressable-mime-type";
+    private static final String PROTOCOL_COMPRESSABLE_MIME_TYPE = "embed-tomcat.protocol-compressable-mime-type";
 
 
-    private static final String PROTOCOL_MAX_THREADS = "embed-tomcat.protocol.max-threads";
+    private static final String PROTOCOL_MAX_THREADS = "embed-tomcat.protocol-max-threads";
 
 
-    private static final String PROTOCOL_MAX_CONNECTIONS = "embed-tomcat.protocol.max-connections";
+    private static final String PROTOCOL_MAX_CONNECTIONS = "embed-tomcat.protocol-max-connections";
 
-    private static final String PROTOCOL_CONNECTION_TIMEOUT = "embed-tomcat.protocol.connection-timeout";
+    private static final String PROTOCOL_CONNECTION_TIMEOUT = "embed-tomcat.protocol-connection-timeout";
 
-    private static final String PROTOCOL_MIN_SPARE_THREADS = "embed-tomcat.protocol.min-spare-threads";
+    private static final String PROTOCOL_MIN_SPARE_THREADS = "embed-tomcat.protocol-min-spare-threads";
 
-    private static final String PROTOCOL_KEEPALIVE_TIMEOUT = "embed-tomcat.protocol.keepalive-timeout";
+    private static final String PROTOCOL_KEEPALIVE_TIMEOUT = "embed-tomcat.protocol-keepalive-timeout";
 
 
-    private static final String PROTOCOL_ACCEPTOR_THREADCOUNT = "embed-tomcat.protocol.acceptor-threadCount";
+    private static final String PROTOCOL_ACCEPTOR_THREADCOUNT = "embed-tomcat.protocol-acceptor-threadCount";
 
     private static final String REDIRECT_PORT = "embed-tomcat.redirect-port";
 
@@ -38,7 +38,7 @@ public class EmbedTomcatConfig {
 
     private static final String MAX_POST_SIZE = "embed-tomcat.max-post-size";
 
-    private static final String PROTOCOL_COMPRESSION = "embed-tomcat.protocol.compression";
+    private static final String PROTOCOL_COMPRESSION = "embed-tomcat.protocol-compression";
 
 
     private static Integer tomcatPort;
