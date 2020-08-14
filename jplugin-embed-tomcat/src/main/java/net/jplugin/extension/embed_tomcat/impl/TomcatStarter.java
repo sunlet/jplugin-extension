@@ -9,6 +9,8 @@ import org.apache.coyote.http11.Http11NioProtocol;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
+import net.jplugin.common.kits.ObjectRef;
+import net.jplugin.common.kits.XMLException;
 import net.jplugin.common.kits.XMLKit;
 import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.ext.webasic.impl.PluginServlet;
@@ -28,7 +30,7 @@ public class TomcatStarter {
 		}else {
 			//use web support = true
 			String webdir = PluginEnvirement.getInstance().getWebRootPath();
-			checkRootPathValid(webdir);
+//			checkRootPathValid(webdir);
 			
 			File file = new File(webdir);
 			if (!file.exists() || !file.isDirectory()) {
@@ -39,16 +41,65 @@ public class TomcatStarter {
 				context = tomcat.addWebapp(ctxName, webdir);
 			}
 		}
-		//创建Servlet
-		tomcat.addServlet(ctxName, "PluginServlet", new PluginServlet4Embed());
-		context.addServletMappingDecoded("*.do", "PluginServlet");
+		
+		if (webXmlExists(PluginEnvirement.getInstance().getWebRootPath())) {
+			//判断是否有合法的Servlet
+			if (!checkWebXmlValid(PluginEnvirement.getInstance().getWebRootPath())) {
+				PluginEnvirement.getInstance().getStartLogger().log("$$$ Embed plugin servlet must be configed in web.xml. You can copy following text into you file: "+getConfigString());
+				throw new RuntimeException("Embed plugin servlet must be configed in web.xml.");
+			}
+		}else {
+			//创建Servlet
+			tomcat.addServlet(ctxName, "PluginServlet", new PluginServlet());
+			context.addServletMappingDecoded("*.do", "PluginServlet");
+		}
 		
 		Connector connector = tomcat.getConnector();
 		customConnector(connector);
-		
 		tomcat.start();
 		
 		return tomcat;
+	}
+	
+	private static String getConfigString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append("\n\n<servlet>")
+		.append("\n\t<servlet-name>weappServlet</servlet-name>")
+		.append("\n\t<servlet-class>net.jplugin.ext.webasic.impl.PluginServlet</servlet-class>")
+		.append("\n</servlet>")
+		.append("\n<servlet-mapping>")
+		.append("\n\t<servlet-name>weappServlet</servlet-name>")
+		.append("\n\t<url-pattern>*.do</url-pattern>")
+		.append("\n</servlet-mapping>\n");
+		return sb.toString();
+	}
+
+	private static boolean checkWebXmlValid(String webdir) throws XMLException {
+		String webxml = webdir +"/WEB-INF/web.xml";
+		File file = new File(webxml);
+		String servletName = PluginServlet.class.getName();
+		
+		ObjectRef<Boolean> servletConfiged = new ObjectRef<Boolean>();
+		ObjectRef<Boolean> dotDoConfiged = new ObjectRef<Boolean>();
+		if (file.exists()) {
+			Document dom = XMLKit.parseFile(webxml);
+			XMLKit.travelNode(dom.getDocumentElement(), (nd)->{
+				if (nd.getNodeType()==Node.TEXT_NODE) {
+					String temp = nd.getTextContent();
+					if (servletName.equals(temp)) {
+						servletConfiged.set(true); 
+					}else if ("*.do".equals(temp))
+						dotDoConfiged.set(true);
+					}
+			} );
+		}
+		return Boolean.TRUE.equals(servletConfiged.get()) && Boolean.TRUE.equals(dotDoConfiged.get());
+	}
+	
+	private static boolean webXmlExists(String webdir) {
+		String webxml = webdir +"/WEB-INF/web.xml";
+		File file = new File(webxml);
+		return file.exists();
 	}
 /**
  * 
@@ -128,26 +179,26 @@ public class TomcatStarter {
 	        //protocol.setNoCompressionUserAgents("gozilla, traviata");
 	}
 
-	/**
-	 * 判断webdir下面的web.XML，一定不能包含JPlugin的非嵌入式Servlet,也不能包含 *.do的定义
-	 * @param webdir
-	 * @throws Exception 
-	 */
-	private static void checkRootPathValid(String webdir) throws Exception {
-		String webxml = webdir +"/WEB-INF/web.xml";
-		File file = new File(webxml);
-		String servletName = PluginServlet.class.getName();
-		
-		if (file.exists()) {
-			Document dom = XMLKit.parseFile(webxml);
-			XMLKit.travelNode(dom.getDocumentElement(), (nd)->{
-				if (nd.getNodeType()==Node.TEXT_NODE) {
-					String temp = nd.getTextContent();
-					if (servletName.equals(temp) || "*.do".contentEquals(temp)){
-						throw new RuntimeException("[net.jplugin.ext.webasic.impl.PluginServlet] servlet and [*.do] mapping must removed when useing embed tomcat!");
-					}
-				}
-			} );
-		}
-	}
+//	/**
+//	 * 判断webdir下面的web.XML，一定不能包含JPlugin的非嵌入式Servlet,也不能包含 *.do的定义
+//	 * @param webdir
+//	 * @throws Exception 
+//	 */
+//	private static void checkRootPathValid(String webdir) throws Exception {
+//		String webxml = webdir +"/WEB-INF/web.xml";
+//		File file = new File(webxml);
+//		String servletName = PluginServlet.class.getName();
+//		
+//		if (file.exists()) {
+//			Document dom = XMLKit.parseFile(webxml);
+//			XMLKit.travelNode(dom.getDocumentElement(), (nd)->{
+//				if (nd.getNodeType()==Node.TEXT_NODE) {
+//					String temp = nd.getTextContent();
+//					if (servletName.equals(temp) || "*.do".contentEquals(temp)){
+//						throw new RuntimeException("[net.jplugin.ext.webasic.impl.PluginServlet] servlet and [*.do] mapping must removed when useing embed tomcat!");
+//					}
+//				}
+//			} );
+//		}
+//	}
 }

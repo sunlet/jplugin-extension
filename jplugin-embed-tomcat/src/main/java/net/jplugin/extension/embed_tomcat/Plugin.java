@@ -4,10 +4,12 @@ import javax.servlet.ServletException;
 
 import org.apache.catalina.LifecycleException;
 
+import net.jplugin.core.kernel.PluginApp;
 import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.PluginAnnotation;
 import net.jplugin.core.kernel.api.PluginEnvirement;
+import net.jplugin.ext.webasic.impl.PluginServlet;
 import net.jplugin.extension.embed_tomcat.impl.EmbedTomcatConfig;
 import net.jplugin.extension.embed_tomcat.impl.TomcatController;
 
@@ -15,7 +17,7 @@ import net.jplugin.extension.embed_tomcat.impl.TomcatController;
 public class Plugin extends AbstractPlugin {
 
 	public Plugin() {
-		this.searchAndBindExtensions();
+		PluginServlet.checkAndUseEmbedMode();
 	}
 	
 	@Override
