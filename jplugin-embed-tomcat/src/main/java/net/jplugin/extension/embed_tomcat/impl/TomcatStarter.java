@@ -6,6 +6,8 @@ import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.coyote.http11.Http11NioProtocol;
+import org.apache.tomcat.JarScanner;
+import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -40,6 +42,7 @@ public class TomcatStarter {
 				PluginEnvirement.getInstance().getStartLogger().log("$$$ Start with static resource and jsp support, Web dir:" + webdir);
 				context = tomcat.addWebapp(ctxName, webdir);
 			}
+			setNotSancanClassPath(context.getJarScanner());
 		}
 		
 		if (webXmlExists(PluginEnvirement.getInstance().getWebRootPath())) {
@@ -61,6 +64,12 @@ public class TomcatStarter {
 		return tomcat;
 	}
 	
+	private static void setNotSancanClassPath(JarScanner jarScanner) {
+//		if (jarScanner instanceof StandardJarScanner) {
+//			((StandardJarScanner)jarScanner).setScanClassPath(false);
+//		}
+	}
+
 	private static String getConfigString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("\n\n<servlet>")
