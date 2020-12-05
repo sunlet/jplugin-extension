@@ -5,7 +5,7 @@
 
 	<groupId>net.jplugin.extension</groupId>
 	<artifactId>jplugin-request-recoder</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>2.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>request-recoder</name>
@@ -15,7 +15,7 @@
 		<dependency>
 			<groupId>net.jplugin.mvn</groupId>
 			<artifactId>jplugin-core</artifactId>
-			<version>1.7.1-SNAPSHOT</version>
+			<version>2.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
