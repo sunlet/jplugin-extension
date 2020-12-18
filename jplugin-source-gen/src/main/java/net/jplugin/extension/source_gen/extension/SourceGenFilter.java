@@ -1,6 +1,7 @@
 package net.jplugin.extension.source_gen.extension;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +18,12 @@ public class SourceGenFilter implements  IInvocationFilter{
 	public boolean before(InvocationContext ctx) {
 		ThreadLocalContext tlCtx = ThreadLocalContextManager.getCurrentContext();
 		HttpServletRequest req = (HttpServletRequest) tlCtx.getAttribute(ThreadLocalContext.ATTR_SERVLET_REQUEST);
+		if (req==null) {
+			return true;
+		}
 		
-		if ("true".equalsIgnoreCase(req.getParameter("gen-the-intf"))){
+		
+		if (containsPara(req,"_gen_rpc_client_")){
 			HttpServletResponse res= (HttpServletResponse) tlCtx.getAttribute(ThreadLocalContext.ATTR_SERVLET_RESPONSE);
 			try {
 				res.getWriter().write(SourceGenerator.generate(ctx));
@@ -38,6 +43,17 @@ public class SourceGenFilter implements  IInvocationFilter{
 		return true;
 	}
 	
+	private boolean containsPara(HttpServletRequest req, String nm) {
+		Enumeration<String> paras = req.getParameterNames();
+		if (paras==null) return false;
+		while(paras.hasMoreElements()){
+			if (nm.equals(paras.nextElement())){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void after(InvocationContext ctx) {
 		
 	}
