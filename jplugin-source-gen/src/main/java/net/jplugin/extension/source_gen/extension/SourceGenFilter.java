@@ -6,11 +6,13 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.jplugin.common.kits.IpKit;
 import net.jplugin.core.kernel.api.ctx.ThreadLocalContext;
 import net.jplugin.core.kernel.api.ctx.ThreadLocalContextManager;
 import net.jplugin.core.rclient.api.RemoteExecuteException;
 import net.jplugin.ext.webasic.api.IInvocationFilter;
 import net.jplugin.ext.webasic.api.InvocationContext;
+
 
 
 public class SourceGenFilter implements  IInvocationFilter{
@@ -25,8 +27,14 @@ public class SourceGenFilter implements  IInvocationFilter{
 		
 		if (containsPara(req,"_gen_rpc_client_")){
 			HttpServletResponse res= (HttpServletResponse) tlCtx.getAttribute(ThreadLocalContext.ATTR_SERVLET_RESPONSE);
+			
 			try {
-				res.getWriter().write(SourceGenerator.generate(ctx));
+				String ipaddress = ctx.getRequestInfo().getCallerIpAddress();
+				if (!IpKit.isOuterIpAddress(ipaddress)) {
+					res.getWriter().write(SourceGenerator.generate(ctx));	
+				}else {
+					res.getWriter().write("Not support");
+				}
 				
 				//阻止返回json结果
 				tlCtx.setAttribute(net.jplugin.ext.webasic.impl.restm.Constants.NOT_WRITE_RESULT, Boolean.FALSE);
