@@ -65,9 +65,9 @@ public class TomcatStarter {
 	}
 	
 	private static void setNotSancanClassPath(JarScanner jarScanner) {
-//		if (jarScanner instanceof StandardJarScanner) {
-//			((StandardJarScanner)jarScanner).setScanClassPath(false);
-//		}
+		if (jarScanner instanceof StandardJarScanner) {
+			((StandardJarScanner)jarScanner).setScanClassPath(false);
+		}
 	}
 
 	private static String getConfigString() {
