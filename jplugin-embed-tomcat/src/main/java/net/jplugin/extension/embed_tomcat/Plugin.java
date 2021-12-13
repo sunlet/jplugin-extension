@@ -38,7 +38,8 @@ public class Plugin extends AbstractPlugin {
 	
 	@Override
 	public void onDestroy() {
-		TomcatController.stopTomcat();
+		//因为发现CTRL+C 无法退出，所以不再destroy了。
+//		TomcatController.stopTomcat();
 	}
 	
 	@Override
