@@ -1,0 +1,141 @@
+ 2022-01-11 20:37:42  $$$ plugin.home=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\.
+ 2022-01-11 20:37:42  $$$ ConfigDir=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\./src/main/resources/config
+ 2022-01-11 20:37:42  $$$ WorkDir=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\.
+ 2022-01-11 20:37:42  @@@ mtenant DISABLED!
+ 2022-01-11 20:37:42  $$$ Auto add extension for point:EP_MYSQL_COMMAND class=net.jplugin.extension.mysql.test.QueryHandler name=3
+ 2022-01-11 20:37:42  $$$ Auto add extension for point:EP_MYSQL_AUTH_CHECK_HANDLER class=net.jplugin.extension.mysql.test.LoginRequestHandler name=
+ 2022-01-11 20:37:42  $$$ Auto add extension for point:EP_MYSQL_COMMAND class=net.jplugin.extension.mysql.test.UseHandler name=2
+ 2022-01-11 20:37:42  Mybatis env not found,skipped!
+ 2022-01-11 20:37:42  ==Now to create services==
+ 2022-01-11 20:37:43  Now to create common logging service.....
+ 2022-01-11 20:37:43  Using global logger config
+ 2022-01-11 20:37:43  platform.log-tx-exec value is:false
+ 2022-01-11 20:37:43  Mybatis env not found,not init!
+ 2022-01-11 20:37:43  初始化过程发生错误
+java.lang.NoClassDefFoundError: javax/servlet/ServletException
+	at net.jplugin.ext.webasic.Plugin.onCreateServices(Plugin.java:102)
+	at net.jplugin.core.kernel.api.PluginRegistry.makeServices(PluginRegistry.java:156)
+	at net.jplugin.core.kernel.api.PluginEnvirement.startup(PluginEnvirement.java:264)
+	at net.jplugin.core.kernel.api.PluginEnvirement.startup(PluginEnvirement.java:193)
+	at net.jplugin.core.kernel.PluginApp.main(PluginApp.java:47)
+	at net.jplugin.extension.mysql.test.MysqlMain.main(MysqlMain.java:8)
+Caused by: java.lang.ClassNotFoundException: javax.servlet.ServletException
+	at java.net.URLClassLoader.findClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Unknown Source)
+	at java.lang.ClassLoader.loadClass(Unknown Source)
+	... 6 more
+ 2022-01-11 20:40:19  $$$ plugin.home=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\.
+ 2022-01-11 20:40:19  $$$ ConfigDir=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\./src/main/resources/config
+ 2022-01-11 20:40:19  $$$ WorkDir=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\.
+ 2022-01-11 20:40:19  @@@ mtenant DISABLED!
+ 2022-01-11 20:40:19  $$$ Auto add extension for point:EP_MYSQL_AUTH_CHECK_HANDLER class=net.jplugin.extension.mysql.test.LoginRequestHandler name=
+ 2022-01-11 20:40:19  $$$ Auto add extension for point:EP_MYSQL_COMMAND class=net.jplugin.extension.mysql.test.UseHandler name=2
+ 2022-01-11 20:40:19  $$$ Auto add extension for point:EP_MYSQL_COMMAND class=net.jplugin.extension.mysql.test.QueryHandler name=3
+ 2022-01-11 20:40:19  Mybatis env not found,skipped!
+ 2022-01-11 20:40:19  ==Now to create services==
+ 2022-01-11 20:40:19  Now to create common logging service.....
+ 2022-01-11 20:40:19  Using global logger config
+ 2022-01-11 20:40:19  platform.log-tx-exec value is:false
+ 2022-01-11 20:40:19  Mybatis env not found,not init!
+ 2022-01-11 20:40:19  platform.rest-compatible-return = false
+ 2022-01-11 20:40:19  $$$ platform.service-time-limit is 6000
+ 2022-01-11 20:40:19  ==Now to init plugins==
+ 2022-01-11 20:40:19  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[2] net.jplugin.ext.staticweb.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[3] net.jplugin.core.service.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[4] net.jplugin.core.log.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[5] net.jplugin.core.ctx.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[6] net.jplugin.core.das.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[7] net.jplugin.core.das.dds.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[8] net.jplugin.core.das.route.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[9] net.jplugin.core.das.mybatis.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[10] net.jplugin.core.rclient.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[11] net.jplugin.core.event.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[12] net.jplugin.ext.webasic.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[13] net.jplugin.ext.gtrace.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[14] net.jplugin.core.mtenant.Plugin
+ 2022-01-11 20:40:19  StartPlugin :[15] net.jplugin.extension.dbp.core.Plugin
+ 2022-01-11 20:40:19  $$$ Now to start mysql protocol service.
+ 2022-01-11 20:40:19  StartPlugin :[16] net.jplugin.extension.mysql.test.Plugin
+ 2022-01-11 20:40:19  $$$ In mysql protocol thread.
+ 2022-01-11 20:40:19  Total 17 plugin started!
+ 2022-01-11 20:40:19  @@Plugin Loaded successfully!
+ 2022-01-11 20:40:19  $$$ Mysql protocal start success
+ 2022-01-11 20:41:53  $$$ plugin.home=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\.
+ 2022-01-11 20:41:53  $$$ ConfigDir=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\./src/main/resources/config
+ 2022-01-11 20:41:53  $$$ WorkDir=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\.
+ 2022-01-11 20:41:54  @@@ mtenant DISABLED!
+ 2022-01-11 20:41:54  $$$ Auto add extension for point:EP_MYSQL_AUTH_CHECK_HANDLER class=net.jplugin.extension.mysql.test.LoginRequestHandler name=
+ 2022-01-11 20:41:54  $$$ Auto add extension for point:EP_MYSQL_COMMAND class=net.jplugin.extension.mysql.test.UseHandler name=2
+ 2022-01-11 20:41:54  $$$ Auto add extension for point:EP_MYSQL_COMMAND class=net.jplugin.extension.mysql.test.QueryHandler name=3
+ 2022-01-11 20:41:54  Mybatis env not found,skipped!
+ 2022-01-11 20:41:54  ==Now to create services==
+ 2022-01-11 20:41:54  Now to create common logging service.....
+ 2022-01-11 20:41:54  Using global logger config
+ 2022-01-11 20:41:54  platform.log-tx-exec value is:false
+ 2022-01-11 20:41:54  Mybatis env not found,not init!
+ 2022-01-11 20:41:54  platform.rest-compatible-return = false
+ 2022-01-11 20:41:54  $$$ platform.service-time-limit is 6000
+ 2022-01-11 20:41:54  ==Now to init plugins==
+ 2022-01-11 20:41:54  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[2] net.jplugin.ext.staticweb.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[3] net.jplugin.core.service.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[4] net.jplugin.core.log.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[5] net.jplugin.core.ctx.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[6] net.jplugin.core.das.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[7] net.jplugin.core.das.dds.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[8] net.jplugin.core.das.route.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[9] net.jplugin.core.das.mybatis.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[10] net.jplugin.core.rclient.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[11] net.jplugin.core.event.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[12] net.jplugin.ext.webasic.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[13] net.jplugin.ext.gtrace.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[14] net.jplugin.core.mtenant.Plugin
+ 2022-01-11 20:41:54  StartPlugin :[15] net.jplugin.extension.dbp.core.Plugin
+ 2022-01-11 20:41:54  $$$ Now to start mysql protocol service.
+ 2022-01-11 20:41:54  StartPlugin :[16] net.jplugin.extension.mysql.test.Plugin
+ 2022-01-11 20:41:54  $$$ In mysql protocol thread.
+ 2022-01-11 20:41:54  Total 17 plugin started!
+ 2022-01-11 20:41:54  @@Plugin Loaded successfully!
+ 2022-01-11 20:41:54  $$$ Mysql protocal start success
+ 2022-01-11 20:47:13  $$$ plugin.home=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\.
+ 2022-01-11 20:47:13  $$$ ConfigDir=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\./src/main/resources/config
+ 2022-01-11 20:47:13  $$$ WorkDir=D:\Work\eclipse-ws\ws-jplugin\jplugin-mysql\.
+ 2022-01-11 20:47:13  @@@ mtenant DISABLED!
+ 2022-01-11 20:47:13  $$$ Auto add extension for point:EP_MYSQL_AUTH_CHECK_HANDLER class=net.jplugin.extension.mysql.test.LoginRequestHandler name=
+ 2022-01-11 20:47:13  $$$ Auto add extension for point:EP_MYSQL_COMMAND class=net.jplugin.extension.mysql.test.UseHandler name=2
+ 2022-01-11 20:47:13  $$$ Auto add extension for point:EP_MYSQL_COMMAND class=net.jplugin.extension.mysql.test.QueryHandler name=3
+ 2022-01-11 20:47:13  Mybatis env not found,skipped!
+ 2022-01-11 20:47:13  ==Now to create services==
+ 2022-01-11 20:47:13  Now to create common logging service.....
+ 2022-01-11 20:47:13  Using global logger config
+ 2022-01-11 20:47:13  platform.log-tx-exec value is:false
+ 2022-01-11 20:47:13  Mybatis env not found,not init!
+ 2022-01-11 20:47:13  platform.rest-compatible-return = false
+ 2022-01-11 20:47:13  $$$ platform.service-time-limit is 6000
+ 2022-01-11 20:47:13  ==Now to init plugins==
+ 2022-01-11 20:47:13  StartPlugin :[0] net.jplugin.core.kernel.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[1] net.jplugin.core.config.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[2] net.jplugin.ext.staticweb.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[3] net.jplugin.core.service.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[4] net.jplugin.core.log.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[5] net.jplugin.core.ctx.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[6] net.jplugin.core.das.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[7] net.jplugin.core.das.dds.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[8] net.jplugin.core.das.route.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[9] net.jplugin.core.das.mybatis.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[10] net.jplugin.core.rclient.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[11] net.jplugin.core.event.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[12] net.jplugin.ext.webasic.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[13] net.jplugin.ext.gtrace.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[14] net.jplugin.core.mtenant.Plugin
+ 2022-01-11 20:47:13  StartPlugin :[15] net.jplugin.extension.dbp.core.Plugin
+ 2022-01-11 20:47:13  $$$ Now to start mysql protocol service.
+ 2022-01-11 20:47:13  StartPlugin :[16] net.jplugin.extension.mysql.test.Plugin
+ 2022-01-11 20:47:13  $$$ In mysql protocol thread.
+ 2022-01-11 20:47:13  Total 17 plugin started!
+ 2022-01-11 20:47:13  @@Plugin Loaded successfully!
+ 2022-01-11 20:47:14  $$$ Mysql protocal start success
