@@ -11,12 +11,12 @@ import java.util.Map;
 
 public class ConnectionContext {
 
-	/**
-	 * 结果package
-	 */
-	IResponseObject responseObject;
+    /**
+     * 结果package
+     */
+    IResponseObject responseObject;
 
-	/**
+    /**
      * Connection
      */
     private ChannelHandlerContext channelHandlerContext;
@@ -33,7 +33,9 @@ public class ConnectionContext {
     /**
      * Store the current query string
      */
-    private ThreadLocal<String> queryString = new ThreadLocal<>();
+    private String queryString;
+
+    private Map<String, String> settings = Maps.newHashMap();
 
     public ConnectionContext(ChannelHandlerContext channelHandlerContext) {
         this.channelHandlerContext = channelHandlerContext;
@@ -67,27 +69,36 @@ public class ConnectionContext {
     }
 
     public void setQueryString(String sql) {
-        queryString.set(sql);
+        this.queryString = sql;
     }
 
     public String getQueryString() {
-        return queryString.get();
+        return this.queryString;
+    }
+
+    public Map<String, String> getSettings() {
+        return settings;
+    }
+
+    public void setSetting(String key, String value) {
+        this.settings.put(key, value);
     }
 
     boolean authed = false;
-	public boolean isAuthrized() {
-		return authed;
-	}
-	
-	public void setAuthizeSuccess() {
-		this.authed = true;
-	}
+
+    public boolean isAuthrized() {
+        return authed;
+    }
+
+    public void setAuthizeSuccess() {
+        this.authed = true;
+    }
 
     public IResponseObject getResponseObject() {
-		return responseObject;
-	}
+        return responseObject;
+    }
 
-	public void setResponseObject(IResponseObject resultObject) {
-		this.responseObject = resultObject;
-	}
+    public void setResponseObject(IResponseObject resultObject) {
+        this.responseObject = resultObject;
+    }
 }
