@@ -27,13 +27,16 @@ public class ConnectionContext {
     private String currentDb;
 
     /**
-     * Store the property
+              *   存储连接相关的属性，生命周期和Connection同步
      */
-    private Map<String, String> properties = Maps.newHashMap();
+    private Map<String, String> connectionProperties = Maps.newHashMap();
+    
     /**
-     * Store the current query string
+             * 存储和每次命令执行相关的属性，一次命令执行完毕，数据返回客户端后系统会清理这里的数据。
      */
-    private ThreadLocal<String> queryString = new ThreadLocal<>();
+    private Map<String, String> requestProperties = Maps.newHashMap();
+    
+    boolean authed = false;
 
     public ConnectionContext(ChannelHandlerContext channelHandlerContext) {
         this.channelHandlerContext = channelHandlerContext;
@@ -47,12 +50,12 @@ public class ConnectionContext {
         this.currentDb = db;
     }
 
-    public Map<String, String> getProperties() {
-        return properties;
+    public Map<String, String> getConnectionProperties() {
+        return connectionProperties;
     }
-
-    public void setProperties(Map<String, String> properties) {
-        this.properties = properties;
+    
+    public Map<String, String> getRequestProperties() {
+        return requestProperties;
     }
 
     public ChannelHandlerContext getChannelHandlerContext() {
@@ -66,15 +69,6 @@ public class ConnectionContext {
         }
     }
 
-    public void setQueryString(String sql) {
-        queryString.set(sql);
-    }
-
-    public String getQueryString() {
-        return queryString.get();
-    }
-
-    boolean authed = false;
 	public boolean isAuthrized() {
 		return authed;
 	}
