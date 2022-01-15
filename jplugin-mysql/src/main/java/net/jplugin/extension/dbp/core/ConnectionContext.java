@@ -11,12 +11,12 @@ import java.util.Map;
 
 public class ConnectionContext {
 
-	/**
-	 * 结果package
-	 */
-	IResponseObject responseObject;
+    /**
+     * 结果package
+     */
+    IResponseObject responseObject;
 
-	/**
+    /**
      * Connection
      */
     private ChannelHandlerContext channelHandlerContext;
@@ -29,12 +29,13 @@ public class ConnectionContext {
     /**
               *   存储连接相关的属性，生命周期和Connection同步
      */
-    private Map<String, String> connectionProperties = Maps.newHashMap();
+    private Map<String, Object> connectionProperties = Maps.newHashMap();
     
     /**
              * 存储和每次命令执行相关的属性，一次命令执行完毕，数据返回客户端后系统会清理这里的数据。
      */
-    private Map<String, String> requestProperties = Maps.newHashMap();
+
+    private Map<String, Object> requestProperties = Maps.newHashMap();
     
     boolean authed = false;
 
@@ -50,11 +51,11 @@ public class ConnectionContext {
         this.currentDb = db;
     }
 
-    public Map<String, String> getConnectionProperties() {
+    public Map<String, Object> getConnectionAttributes() {
         return connectionProperties;
     }
     
-    public Map<String, String> getRequestProperties() {
+    public Map<String, Object> getRequestAttributes() {
         return requestProperties;
     }
 
@@ -78,10 +79,10 @@ public class ConnectionContext {
 	}
 
     public IResponseObject getResponseObject() {
-		return responseObject;
-	}
+        return responseObject;
+    }
 
-	public void setResponseObject(IResponseObject resultObject) {
-		this.responseObject = resultObject;
-	}
+    public void setResponseObject(IResponseObject resultObject) {
+        this.responseObject = resultObject;
+    }
 }

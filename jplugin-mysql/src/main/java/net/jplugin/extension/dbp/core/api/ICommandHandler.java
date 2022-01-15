@@ -1,5 +1,6 @@
 package net.jplugin.extension.dbp.core.api;
 
+import net.jplugin.extension.dbp.core.ConnectionContext;
 import net.jplugin.extension.dbp.core.req.CommandRequest;
 import net.jplugin.extension.dbp.core.resp.ResultSetResponse;
 
@@ -17,6 +18,7 @@ public interface ICommandHandler {
 	 * @param connCtx
 	 * @param commandPackage
 	 */
-	public void executeCommand(net.jplugin.extension.dbp.core.ConnectionContext connCtx,CommandRequest commandPackage);
+	public void handleCommand(net.jplugin.extension.dbp.core.ConnectionContext connCtx,CommandRequest commandPackage);
+
 
 }

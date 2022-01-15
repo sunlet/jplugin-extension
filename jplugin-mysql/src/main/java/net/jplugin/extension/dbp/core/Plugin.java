@@ -1,10 +1,12 @@
 package net.jplugin.extension.dbp.core;
 
+import net.jplugin.common.kits.filter.IFilter;
 import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionPoint;
 import net.jplugin.core.kernel.api.PluginAnnotation;
 import net.jplugin.core.kernel.api.PluginEnvirement;
+import net.jplugin.extension.dbp.core.api.ICommandFilter;
 import net.jplugin.extension.dbp.core.api.ICommandHandler;
 import net.jplugin.extension.dbp.core.api.ILoginRequestHandler;
 
@@ -48,12 +50,19 @@ import net.jplugin.extension.dbp.core.api.ILoginRequestHandler;
 @PluginAnnotation
 public class Plugin extends AbstractPlugin{
 
-	public static final String EP_MYSQL_COMMAND_HANDLER = "EP_MYSQL_COMMAND";
+	public static final String EP_MYSQL_COMMAND_HANDLER = "EP_MYSQL_COMMAND_HANDLER";
 	public static final String EP_MYSQL_AUTH_CHECK_HANDLER = "EP_MYSQL_AUTH_CHECK_HANDLER";
+	public static final String EP_MYSQL_COMMAND_FILTER = "EP_MYSQL_COMMAND_FILTER";
 
 	public Plugin() {
+		//各种类型的命令进行处理的扩展点
 		this.addExtensionPoint(ExtensionPoint.createNamed(EP_MYSQL_COMMAND_HANDLER, ICommandHandler.class));
+		
+		//进行登录认证的扩展点
 		this.addExtensionPoint(ExtensionPoint.createUnique(EP_MYSQL_AUTH_CHECK_HANDLER, ILoginRequestHandler.class));
+		
+		//对COMMAND的执行进行拦截过滤的扩展点
+		this.addExtensionPoint(ExtensionPoint.createList(EP_MYSQL_COMMAND_FILTER,ICommandFilter.class));
 	}
 	
 	MysqlStarter thread;
