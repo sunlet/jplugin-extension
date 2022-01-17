@@ -69,10 +69,7 @@ public class BasicQueryCommandFilter implements ICommandFilter {
    */
   private void handleQuery(ConnectionContext connCtx) {
 //      connCtx.setQueryString(command.getCommand());
-      if (isSettingsQuery(connCtx)) {
-          handleSetting(connCtx);
-          return;
-      }
+
 
       if (isServerSettingsQuery(connCtx)) {
           handleServerSettings(connCtx);
@@ -88,25 +85,9 @@ public class BasicQueryCommandFilter implements ICommandFilter {
 //      handler.handleCommand(connCtx, command);
   }
 
-  private boolean isSettingsQuery(ConnectionContext connCtx) {
-      String query = Util.getCommandQuery(connCtx).toLowerCase();
-      Matcher matcher = PatternUtils.SETTINGS_PATTERN.matcher(query);
-      return matcher.find();
-  }
+ 
 
-  private void handleSetting(ConnectionContext context) {
-	  String query = Util.getCommandQuery(context).toLowerCase();
-      Matcher matcher = PatternUtils.SETTINGS_PATTERN.matcher(query);
-      while (matcher.find()) {
-          if ("null".equalsIgnoreCase(matcher.group(7))) {
-              continue;
-          }
-          context.getConnectionAttributes().put(matcher.group(3), matcher.group(7));
-      }
-
-      SuccessResponse resp = SuccessResponse.create(0, 0);
-      context.setResponseObject(resp);
-  }
+ 
 
   private boolean isServerSettingsQuery(ConnectionContext connCtx) {
 	  String query = Util.getCommandQuery(connCtx).toLowerCase();
@@ -303,9 +284,7 @@ public class BasicQueryCommandFilter implements ICommandFilter {
 //      }
 //  }
 
-  private void handlePing(ConnectionContext connCtx, CommandRequest commandPackage) {
-      okResponse(connCtx);
-  }
+ 
 
   private void okResponse(ConnectionContext connCtx) {
       SuccessResponse resp = SuccessResponse.create(0, 0);
