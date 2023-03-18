@@ -7,13 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="jplugin-request-recoder" />
-        <module name="platform-app-notify" />
         <module name="jplugin-source-gen" />
         <module name="jplugin-embed-tomcat" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="app-notify" target="1.8" />
       <module name="extension" target="1.8" />
+      <module name="jplugin-app-notify" target="1.8" />
       <module name="jplugin-embed-tomcat" target="1.8" />
       <module name="jplugin-request-recoder" target="1.8" />
       <module name="jplugin-source-gen" target="1.8" />
