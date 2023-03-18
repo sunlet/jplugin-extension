@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/extension.iml" filepath="$PROJECT_DIR$/extension.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jplugin-embed-tomcat/jplugin-embed-tomcat.iml" filepath="$PROJECT_DIR$/jplugin-embed-tomcat/jplugin-embed-tomcat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jplugin-request-recorder/jplugin-request-recoder.iml" filepath="$PROJECT_DIR$/jplugin-request-recorder/jplugin-request-recoder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jplugin-source-gen/jplugin-source-gen.iml" filepath="$PROJECT_DIR$/jplugin-source-gen/jplugin-source-gen.iml" />
+    </modules>
+  </component>
+</project>

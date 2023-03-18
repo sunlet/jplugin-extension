@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="jplugin-request-recoder" />
+        <module name="jplugin-source-gen" />
+        <module name="jplugin-embed-tomcat" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="extension" target="1.8" />
+      <module name="jplugin-embed-tomcat" target="1.8" />
+      <module name="jplugin-request-recoder" target="1.8" />
+      <module name="jplugin-source-gen" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

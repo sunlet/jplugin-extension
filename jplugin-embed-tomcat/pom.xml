@@ -5,7 +5,7 @@
 
 	<groupId>net.jplugin.extension</groupId>
 	<artifactId>jplugin-embed-tomcat</artifactId>
-	<version>2.0.2-SNAPSHOT</version>
+	<version>3.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>request-recoder</name>
@@ -13,9 +13,19 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>net.jplugin.mvn</groupId>
+			<groupId>net.jplugin</groupId>
 			<artifactId>jplugin-core</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.jplugin</groupId>
+			<artifactId>jplugin-mvc</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.jplugin</groupId>
+			<artifactId>jplugin-das</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -92,15 +102,16 @@
 	</properties>
 
 	<distributionManagement>
+		<!--RELEASE版发布到中央-->
+		<repository>
+			<id>repository</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<!--SNAPSHOT版发布到私服-->
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>Nexus Snapshot Repository</name>
-			<url>http://maven.haiziwang.com/nexus/content/repositories/snapshots/</url>
+			<url>http://maven-server:8081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
-		<repository>
-			<id>releases</id>
-			<name>Nexus Release Repository</name>
-			<url>http://maven.haiziwang.com/nexus/content/repositories/releases/</url>
-		</repository>
 	</distributionManagement>
 </project>
