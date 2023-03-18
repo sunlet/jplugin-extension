@@ -4,24 +4,26 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>net.jplugin.extension</groupId>
-	<artifactId>extension</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<artifactId>app-notify</artifactId>
+	<version>3.0.0</version>
+	<packaging>jar</packaging>
+
+	<name>app-notify</name>
+	<url>http://maven.apache.org</url>
+
 	<properties>
-		<maven.deploy.skip>true</maven.deploy.skip>
-		<maven.install.skip>true</maven.install.skip>
-		<maven.test.skip>true</maven.test.skip>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-		<projectVersion>2.0.0-SNAPSHOT</projectVersion>
 	</properties>
 
-	<modules>
-		<module>jplugin-embed-tomcat</module>
-		<module>jplugin-request-recorder</module>
-		<module>jplugin-source-gen</module>
-		<module>jplugin-app-notify</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>net.jplugin</groupId>
+			<artifactId>jplugin-cloud</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>
