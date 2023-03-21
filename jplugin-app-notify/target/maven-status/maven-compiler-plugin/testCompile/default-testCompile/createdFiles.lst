@@ -1,0 +1,5 @@
+net\jplugin\extension\appnotifytest\Plugin.class
+net\jplugin\extension\appnotifytest\TestExport.class
+net\jplugin\extension\appnotifytest\ListenerClass2.class
+net\jplugin\extension\appnotifytest\Main.class
+net\jplugin\extension\appnotifytest\ListenerClass.class

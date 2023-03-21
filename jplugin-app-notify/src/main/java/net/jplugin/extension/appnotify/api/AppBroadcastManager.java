@@ -4,10 +4,11 @@ import java.net.InetAddress;
 import java.util.List;
 
 
+import net.jplugin.cloud.rpc.client.api.NodeContext;
 import net.jplugin.extension.appnotify.export.NotifyExport;
 
 
-import net.jplugin.cloud.rpc.client.api.RpcContext;
+
 import net.jplugin.cloud.rpc.client.api.RpcContextManager;
 import net.jplugin.common.kits.IpKit;
 import net.jplugin.core.config.api.CloudEnvironment;
@@ -71,9 +72,10 @@ public class AppBroadcastManager {
 		int successNum=0;
 
 
-		List<RpcContext> list = ServiceFactory.getService(RpcContextManager.class).getNodeContextList(CloudEnvironment.INSTANCE._composeAppCode());
+		List<NodeContext> list = ServiceFactory.getService(RpcContextManager.class).getNodeContextList(CloudEnvironment.INSTANCE._composeAppCode());
 
-		for (RpcContext context:list){
+
+		for (NodeContext context:list){
 			if (!includeSelf && isSelf(context)){
 				continue;
 			}
@@ -96,14 +98,14 @@ public class AppBroadcastManager {
 		if (!init){
 			synchronized (AppBroadcastManager.class) {
 				localIp = IpKit.getLocalIp();
-				esfPort = CloudEnvironment.INSTANCE._getRpcPortWithEmbbedTomcat() +"";
+				esfPort = CloudEnvironment.INSTANCE.getRpcPort() +"";
 				init = true;	
 			}
 		}
 	}
 	
 	
-	private boolean isSelf(RpcContext clientContext) {
+	private boolean isSelf(NodeContext clientContext) {
 		initLocalConfig();
 		
 		return (localIp.equals(clientContext.getRemoteHostIp())

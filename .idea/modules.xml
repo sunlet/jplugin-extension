@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/extension.iml" filepath="$PROJECT_DIR$/extension.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jplugin-app-notify/jplugin-app-notify.iml" filepath="$PROJECT_DIR$/jplugin-app-notify/jplugin-app-notify.iml" />
       <module fileurl="file://$PROJECT_DIR$/jplugin-embed-tomcat/jplugin-embed-tomcat.iml" filepath="$PROJECT_DIR$/jplugin-embed-tomcat/jplugin-embed-tomcat.iml" />
       <module fileurl="file://$PROJECT_DIR$/jplugin-request-recorder/jplugin-request-recoder.iml" filepath="$PROJECT_DIR$/jplugin-request-recorder/jplugin-request-recoder.iml" />
       <module fileurl="file://$PROJECT_DIR$/jplugin-source-gen/jplugin-source-gen.iml" filepath="$PROJECT_DIR$/jplugin-source-gen/jplugin-source-gen.iml" />
