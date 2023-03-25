@@ -1,19 +1,24 @@
 package net.jplugin.extension.source_gen.extension;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
+import java.lang.reflect.*;
 import java.util.HashSet;
+import java.util.List;
 
 
-
+import net.jplugin.cloud.rpc.client.annotation.BindRemoteService;
+import net.jplugin.cloud.rpc.client.annotation.Protocol;
+import net.jplugin.common.kits.ReflactKit;
 import net.jplugin.common.kits.StringKit;
+import net.jplugin.core.config.api.CloudEnvironment;
+import net.jplugin.core.kernel.api.Extension;
+import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.ext.webasic.api.InvocationContext;
 import net.jplugin.ext.webasic.api.Para;
 
+import javax.lang.model.type.IntersectionType;
+
 public class SourceGenerator {
 
-	private static Method method;
 
 	public static String generate(InvocationContext ctx) {
 		if (StringKit.isNotNull(ctx.getDynamicPath())){
@@ -22,26 +27,23 @@ public class SourceGenerator {
 		if (isPublicIp(ctx.getRequestInfo().getCallerIpAddress())) {
 			return "NO";
 		}
-		
-		
-		Method method = ctx.getMethod();
+
+		Method method = getMethod(ctx);
+
 		String spath = ctx.getServicePath();
 		
 		StringBuffer sb = new StringBuffer();
 		HashSet<Class> imports=new HashSet();
-//		sb.append("@BindRemoteServiceProxy(protocol = ProxyProtocol.rpc_json,url = \"esf://").append()/custmgr\"))
-		
+
 		String bindAnno = tryGetBindAnnoClause(ctx);
-		if (StringKit.isNotNull(bindAnno)) {
-			sb.append("import com.haiziwang.platform.esf.client.annotation.BindRemoteServiceProxy;\n");
-			sb.append("import com.haiziwang.platform.esf.client.annotation.BindRemoteServiceProxy.ProxyProtocol;\n\n");
-			sb.append(bindAnno);
-		}
-		
+		sb.append(bindAnno);
+		imports.add(BindRemoteService.class);
+		imports.add(Protocol.class);
+
 		sb.append("public interface ").append(getClassName(spath,method)).append( " {");
 		sb.append("\n\t");
-		sb.append("public ").append(getReturnType(ctx,imports)).append(" ").append(method.getName()).append("(");
-		sb.append(getParameters(ctx,imports));
+		sb.append("public ").append(getReturnType(method,imports)).append(" ").append(method.getName()).append("(");
+		sb.append(getParameters(method,imports));
 		sb.append(");");
 		sb.append("\n}");
 		
@@ -49,22 +51,18 @@ public class SourceGenerator {
 		return sb.toString();
 	}
 
+	private static Method getMethod(InvocationContext ctx) {
+		List<Extension> extList = PluginEnvirement.INSTANCE.getExtensionList("EP_SERVICE_EXPORT");
+		Extension target = extList.stream().filter(e -> {
+			return ctx.getServicePath().equals(e.getName());
+		}).findFirst().get();
+
+		return ReflactKit.findSingeMethodExactly(target.getFactory().getImplClass(), ctx.getMethod().getName());
+	}
+
 	private static String tryGetBindAnnoClause(InvocationContext ctx) {
-		try {
-			Class<?> clazz = Class.forName("com.haiziwang.platform.appclient.api.AppEnvirement");
-			Field field = clazz.getField("INSTANCE");
-			Object inst = field.get(null);
-			method = clazz.getMethod("getBasicConfiguration", new Class[] {});
-			Object baseInfoInst = method.invoke(inst, new Class[] {});
-			method = baseInfoInst.getClass().getMethod("getAppCode", new Class[] {});
-			Object appCode = method.invoke(baseInfoInst, new Class[] {});
-			
-			return "@BindRemoteServiceProxy(protocol = ProxyProtocol.rpc_json,url = \"esf://"+ appCode+ctx.getServicePath()+"\")\n";
-			
-		}catch(Exception e) {
-			return "";
-		}
-		
+		String appCode = CloudEnvironment.INSTANCE._composeAppCode();
+		return "@BindRemoteService(protocol = Protocol.rpc,url = \"esf://"+ appCode+ctx.getServicePath()+"\")\n";
 	}
 
 	private static Object getImports(HashSet<Class> imports) {
@@ -73,7 +71,12 @@ public class SourceGenerator {
 		
 		for (Class imp:imports) {
 			
-			String name = imp.getName();
+			String name;
+			if (imp.isArray()){
+				name = getArrayCompName(imp);
+			}else {
+				name = imp.getName();
+			}
 			if (!"void".equals(name)){
 				sb.append("import ").append(name).append(";");
 				sb.append("\n");
@@ -84,12 +87,20 @@ public class SourceGenerator {
 		return sb.toString();
 	}
 
+	private static String getArrayCompName(Class imp) {
+		if (imp.isArray()){
+			return getArrayCompName(imp.getComponentType());
+		}else{
+			return imp.getName();
+		}
+	}
+
 	private static boolean isPublicIp(String callerIpAddress) {
 		return false;
 	}
 
-	private static Object getParameters(InvocationContext ctx, HashSet<Class> imports) {
-		Parameter[] params = ctx.getMethod().getParameters();
+	private static Object getParameters(Method method, HashSet<Class> imports) {
+		Parameter[] params = method.getParameters();
 		StringBuffer sb = new StringBuffer();
 		
 		boolean first = true;
@@ -99,25 +110,41 @@ public class SourceGenerator {
 			}else {
 				first = false;
 			}
-			String type = p.getType().getSimpleName();
+//			String type = p.getType().getSimpleName();
+			Type theType =p.getParameterizedType();
+
 			imports.add(p.getType());
 			String name = p.getName();
-			
-			Para anno = p.getAnnotation(Para.class);
-			
-			if (anno!=null) {
-				name =  anno.name();
-//				sb.append("@Para(name=\""+name+"\") ");
-			}
-			sb.append(type).append(" ").append(name);
+
+			sb.append(getTypeString(theType)).append(" ").append(name);
 		}
 		return sb.toString();
 	}
 
-	private static Object getReturnType(InvocationContext ctx, HashSet<Class> imports) {
-		Class<?> type = ctx.getMethod().getReturnType();
-		imports.add(type);
-		return type.getSimpleName();
+	private static String getTypeString(Type gtype) {
+		if (gtype instanceof ParameterizedType){
+			return ((ParameterizedType)gtype).toString();
+		}else if (gtype instanceof Class){
+			return ((Class)gtype).getSimpleName();
+		}else{
+			//NOT SUPPORT
+			return "";
+		}
+	}
+
+	private static Object getReturnType(Method method, HashSet<Class> imports) {
+		Type gtype = method.getGenericReturnType();
+		if (gtype instanceof ParameterizedType){
+			((ParameterizedType)gtype).getRawType();
+			imports.add((Class)((ParameterizedType)gtype).getRawType());
+			return gtype.toString();
+		}else if (gtype instanceof Class){
+			imports.add((Class)gtype);
+			return ((Class)gtype).getSimpleName();
+		}else{
+			//NOT SUPPORT
+			return "";
+		}
 	}
 
 	private static String getClassName(String spath, Method method) {
