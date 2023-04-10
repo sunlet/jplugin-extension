@@ -28,7 +28,8 @@ public class SourceGenerator {
 			return "NO";
 		}
 
-		Method method = getMethod(ctx);
+//		Method method = getMethod(ctx);
+		Method method = ctx.getMethod();
 
 		String spath = ctx.getServicePath();
 		
@@ -51,14 +52,17 @@ public class SourceGenerator {
 		return sb.toString();
 	}
 
-	private static Method getMethod(InvocationContext ctx) {
-		List<Extension> extList = PluginEnvirement.INSTANCE.getExtensionList("EP_SERVICE_EXPORT");
-		Extension target = extList.stream().filter(e -> {
-			return ctx.getServicePath().equals(e.getName());
-		}).findFirst().get();
-
-		return ReflactKit.findSingeMethodExactly(target.getFactory().getImplClass(), ctx.getMethod().getName());
-	}
+//	private static Method getMethod(InvocationContext ctx) {
+//		return ctx.getMethod();
+//		List<Extension> extList = PluginEnvirement.INSTANCE.getExtensionList("EP_SERVICE_EXPORT");
+//		Extension target = extList.stream().filter(e -> {
+//			return ctx.getServicePath().equals(e.getName());
+//		}).findFirst().get();
+//
+//
+//
+//		return ReflactKit.findSingeMethodExactly(target.getFactory().getImplClass(), ctx.getMethod().getName());
+//	}
 
 	private static String tryGetBindAnnoClause(InvocationContext ctx) {
 		String appCode = CloudEnvironment.INSTANCE._composeAppCode();
