@@ -1,9 +1,9 @@
 net\jplugin\extension\appnotify\export\INotifyExport.class
 net\jplugin\extension\appnotify\ExtensionAppNotifyHelper.class
 net\jplugin\extension\appnotify\api\IAppBroadcastListener.class
+net\jplugin\extension\appnotify\export\NotifyExport.class
+net\jplugin\extension\appnotify\api\Result.class
 net\jplugin\extension\appnotify\api\BroadcastMessage.class
 net\jplugin\extension\appnotify\api\AppBroadcastManager.class
-net\jplugin\extension\appnotify\export\NotifyExport.class
 net\jplugin\extension\appnotify\Plugin.class
 net\jplugin\extension\appnotify\impl\NotifyServiceManager.class
-net\jplugin\extension\appnotify\api\Result.class
